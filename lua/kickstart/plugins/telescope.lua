@@ -61,7 +61,12 @@ return {
         --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
         --   },
         -- },
-        -- pickers = {}
+        pickers = {
+          find_files = {
+            -- Show hidden files, other than .git directory.
+            find_command = { 'rg', '--files', '--hidden', '-g', '!.git' },
+          },
+        },
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
