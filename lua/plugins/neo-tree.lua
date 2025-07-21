@@ -1,5 +1,7 @@
--- Neo-tree is a Neovim plugin to browse the file system
+-- [[ Neo-tree ]]
 -- https://github.com/nvim-neo-tree/neo-tree.nvim
+--
+-- File system browser, with sidebar layout support.
 
 return {
   'nvim-neo-tree/neo-tree.nvim',
@@ -23,3 +25,5 @@ return {
     },
   },
 }
+
+-- vim: ts=2 sts=2 sw=2 et

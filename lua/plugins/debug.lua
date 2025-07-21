@@ -1,15 +1,12 @@
--- debug.lua
+-- [[ Debug Adapter Protocol (DAP) ]]
+-- https://github.com/mfussenegger/nvim-dap
 --
--- Shows how to use the DAP plugin to debug your code.
---
--- Primarily focused on configuring the debugger for Go, but can
--- be extended to other languages as well. That's why it's called
--- kickstart.nvim and not kitchen-sink.nvim ;)
+-- Debug Adapter Protocol implementation for Neovim. Facilitates launching
+-- applications for debug, attaching debuggers, setting breakpoints, and
+-- inspecting state.
 
 return {
-  -- NOTE: Yes, you can install new plugins here!
   'mfussenegger/nvim-dap',
-  -- NOTE: And you can specify dependencies as well
   dependencies = {
     -- Creates a beautiful debugger UI
     'rcarriga/nvim-dap-ui',
@@ -146,3 +143,5 @@ return {
     }
   end,
 }
+
+-- vim: ts=2 sts=2 sw=2 et

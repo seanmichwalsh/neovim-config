@@ -1,6 +1,10 @@
-return {
+-- [[ nvim-lint ]]
+-- https://github.com/mfussenegger/nvim-lint
+--
+-- Async linter that hooks into LSP server.
 
-  { -- Linting
+return {
+  {
     'mfussenegger/nvim-lint',
     event = { 'BufReadPre', 'BufNewFile' },
     config = function()
@@ -58,3 +62,5 @@ return {
     end,
   },
 }
+
+-- vim: ts=2 sts=2 sw=2 et
