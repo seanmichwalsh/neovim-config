@@ -3,6 +3,13 @@
 --
 -- Powerful fuzzy finder for files, text, snippets, etc.
 
+-- Additional grep filter args
+local grep_args = {
+  '--hidden',
+  '--glob',
+  '!**/.git/*',
+}
+
 return {
   {
     'nvim-telescope/telescope.nvim',
@@ -58,7 +65,23 @@ return {
         --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
         --   },
         -- },
-        -- pickers = {}
+        pickers = {
+          -- Include hidden files in file searches.
+          find_files = {
+            hidden = true,
+          },
+          -- Include hidden files but exclude .git files in greps.
+          live_grep = {
+            additional_args = function()
+              return grep_args
+            end,
+          },
+          grep_string = {
+            additional_args = function()
+              return grep_args
+            end,
+          },
+        },
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
