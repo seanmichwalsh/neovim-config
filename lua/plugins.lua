@@ -2,20 +2,20 @@
 
 -- Use lazy.nvim plugin manager, which must be initialized first.
 require('lazy').setup({
-  require 'plugins.autopairs',
-  require 'plugins.blink-cmp',
-  require 'plugins.conform',
-  require 'plugins.gitsigns',
   require 'plugins.guess-indent',
-  require 'plugins.indent-line',
-  require 'plugins.lint',
-  require 'plugins.lspconfig',
-  require 'plugins.mini',
+  require 'plugins.gitsigns',
+  require 'plugins.which-key',
   require 'plugins.telescope',
+  require 'plugins.lspconfig',
+  require 'plugins.conform',
+  require 'plugins.blink-cmp',
   require 'plugins.todo-comments',
   require 'plugins.tokyo-night',
+  require 'plugins.mini',
   require 'plugins.treesitter',
-  require 'plugins.which-key',
+  require 'plugins.lint',
+  require 'plugins.indent-line',
+  require 'plugins.autopairs',
 }, {
   ui = {
     -- If a Nerd Font is installed, setting icons to an empty table will cause the
