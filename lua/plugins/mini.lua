@@ -38,8 +38,23 @@ return {
         return '%2l:%-2v'
       end
 
-      -- ... and there is more!
-      --  Check out: https://github.com/echasnovski/mini.nvim
+      -- Mini.Files - Netrw file explorer replacement
+      local mini_files = require 'mini.files'
+      mini_files.setup {
+        mappings = {
+          close = '<ESC>',
+        },
+        -- Show reasonably sized file previews
+        windows = {
+          preview = true,
+          width_preview = 80,
+        },
+      }
+      -- File explorer keybinds - open either root or current directory
+      vim.keymap.set('n', '<leader>er', mini_files.open, { desc = '[E]xplore [R]oot directory' })
+      vim.keymap.set('n', '<leader>ef', function()
+        mini_files.open(vim.api.nvim_buf_get_name(0))
+      end, { desc = '[E]xplore [F]ile directory' })
     end,
   },
 }
