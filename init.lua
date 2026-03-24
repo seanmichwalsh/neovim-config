@@ -15,11 +15,3 @@ require 'options'
 
 -- [[ Set keymap overrides ]]
 require 'keymaps'
-
--- [[ Initialize lazy.nvim plugin manager ]]
-require 'lazy-init'
-
--- [[ Install and configure plugins ]]
-require 'plugins'
-
--- vim: ts=2 sts=2 sw=2 et
