@@ -59,3 +59,7 @@ vim.o.scrolloff = 10
 -- If performing an operation that would fail due to unsaved changes in the
 -- buffer (like `:q`), instead raise a confirmation dialog.
 vim.o.confirm = true
+
+-- Avoid folding anything on buffer open by setting default foldlevel to an
+-- unrealistically high value.
+vim.o.foldlevel = 99
