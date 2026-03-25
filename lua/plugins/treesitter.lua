@@ -4,6 +4,8 @@
 -- Package manager for treesitter parsers, plus logic to bootstap these
 -- parsers using Neovim's native treesitter support.
 --
+-- Depends: nil
+--
 -- NOTE: Plugin has dependency on third-party `tree-sitter-cli` host package,
 -- must be installed manually.
 
@@ -98,3 +100,26 @@ vim.api.nvim_create_autocmd('FileType', {
     end
   end
 })
+
+-- nvim-treesitter-context
+-- https://github.com/nvim-treesitter/nvim-treesitter-context.git
+--
+-- Pins the declaration of the currently visible function / variable at the top
+-- of the active buffer when said declaration would normally be out of view.
+--
+-- Depends: { nvim-treesitter }
+
+vim.pack.add({"https://github.com/nvim-treesitter/nvim-treesitter-context"})
+
+require('treesitter-context').setup({
+  max_lines = 3,            -- Max lines to display for all contexts.
+  multiline_threshold = 1,  -- Max lines to display per individual context.
+  min_window_height = 20,   -- Min window size needed to display any context.
+  line_numbers = true,
+})
+
+vim.keymap.set('n', 'gc', function()
+    require('treesitter-context').go_to_context(vim.v.count1)
+  end,
+  { silent = true }
+)
