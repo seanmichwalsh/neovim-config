@@ -1,0 +1,1 @@
+-- Enable individual plugins and associated configuration logic.
