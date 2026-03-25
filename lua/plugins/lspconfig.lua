@@ -17,6 +17,28 @@ local system_lsps = {
 }
 vim.lsp.enable(system_lsps)
 
+-- Show current status of all LSPs.
+vim.api.nvim_create_user_command(
+  'LspInfo',
+  function()
+    vim.cmd.checkhealth('vim.lsp')
+  end,
+  {
+    desc = 'Show LSP status',
+  }
+)
+
+-- Show logfile for LSP attached to active buffer.
+vim.api.nvim_create_user_command(
+  'LspLog',
+  function()
+    vim.cmd('tabnew ' .. vim.lsp.log.get_filename())
+  end,
+  {
+    desc = 'Show LSP logs',
+  }
+)
+
 -- mason.nvim
 -- https://github.com/mason-org/mason.nvim.git
 --
