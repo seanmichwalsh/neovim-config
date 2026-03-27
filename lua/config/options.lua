@@ -63,3 +63,18 @@ vim.o.confirm = true
 -- Avoid folding anything on buffer open by setting default foldlevel to an
 -- unrealistically high value.
 vim.o.foldlevel = 99
+
+-- Use spaces to expand tab characters.
+vim.o.expandtab = true
+
+-- Apply indentation of the current line to newlines.
+vim.o.autoindent = true
+
+-- Apply indentation rules for language / syntax to newlines.
+vim.o.smartindent = true
+
+-- Size of a tab character.
+vim.o.tabstop = 4
+
+-- Size of indentation built-in functionality inserts.
+vim.o.shiftwidth = 4

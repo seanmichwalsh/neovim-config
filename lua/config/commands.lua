@@ -66,3 +66,12 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.hl.on_yank()
   end,
 })
+
+-- Override default indentation for specific filetypes.
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = 'lua',
+    callback = function()
+        vim.opt_local.tabstop = 2
+        vim.opt_local.shiftwidth = 2
+    end
+})

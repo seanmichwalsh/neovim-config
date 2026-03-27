@@ -92,8 +92,7 @@ vim.api.nvim_create_autocmd('FileType', {
     local filetype = args.match
     local lang = vim.treesitter.language.get_lang(filetype)
     if vim.treesitter.language.add(lang) then
-      -- Use treesitter for folds and indents too.
-      vim.bo.indentexpr = 'v:lua.vim.treesitter.indentexpr()'
+      -- Use treesitter for folds too.
       vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
       vim.wo.foldmethod = 'expr'
       vim.treesitter.start()
