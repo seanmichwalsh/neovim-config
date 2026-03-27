@@ -3,3 +3,4 @@
 require 'plugins.treesitter'
 require 'plugins.lspconfig'
 require 'plugins.fuzzy_finder'
+require 'plugins.completions'
