@@ -60,6 +60,3 @@ require('mason').setup()
 
 vim.pack.add({"https://github.com/mason-org/mason-lspconfig.nvim.git"})
 require('mason-lspconfig').setup()
-
--- Keymaps for Neovim native LSP commands.
-vim.keymap.set('n', 'gd', vim.lsp.buf.definition)
