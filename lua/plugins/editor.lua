@@ -71,6 +71,7 @@ miniclue.setup({
 
   clues = {
     { mode = 'n', keys = '<Leader>s', desc = '+Search' },
+    { mode = 'n', keys = '<Leader>f', desc = '+Files' },
     miniclue.gen_clues.g(),
     miniclue.gen_clues.z(),
     miniclue.gen_clues.square_brackets(),
