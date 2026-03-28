@@ -4,8 +4,14 @@
 -- Fuzzy finder for all sorts of categories (files, greps, diagnostics,
 -- LSP output, etc).
 --
--- Depends: nil
+-- Depends: mini.icons
 vim.pack.add({'https://github.com/ibhagwan/fzf-lua.git'})
+
+require('fzf-lua').setup({
+  files = {
+    file_icons = 'mini',
+  },
+})
 
 -- Search against all files recursively from the current directory.
 vim.keymap.set('n', '<leader>sf',

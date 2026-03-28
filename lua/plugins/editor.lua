@@ -8,6 +8,13 @@
 
 vim.pack.add({'https://github.com/nvim-mini/mini.nvim.git'})
 
+-- mini.icons
+--
+-- Provides glyph icons available to other plugins like fzf-lua.
+--
+-- Depends: Terminal NerdFont
+require('mini.icons').setup()
+
 -- mini.pairs
 --
 -- When inserting a character that expects a pair, auto-insert the pair.
