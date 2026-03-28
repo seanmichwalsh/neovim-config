@@ -117,8 +117,11 @@ require('treesitter-context').setup({
   line_numbers = true,
 })
 
-vim.keymap.set('n', 'gc', function()
+vim.keymap.set('n', 'gs', function()
     require('treesitter-context').go_to_context(vim.v.count1)
   end,
-  { silent = true }
+  {
+    desc = 'Go to context',
+    silent = true,
+  }
 )
