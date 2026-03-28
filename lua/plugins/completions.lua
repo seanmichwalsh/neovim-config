@@ -16,11 +16,12 @@ vim.pack.add({
   },
 })
 
+
 require('blink.cmp').setup({
   completion = {
     menu = {
       -- Don't show completions until user presses '<C-space>'.
-      auto_show = false,
+      -- auto_show = false,
     },
     list = {
       selection = {
