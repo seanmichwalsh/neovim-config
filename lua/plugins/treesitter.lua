@@ -1,35 +1,127 @@
--- [[ nvim-treesitter ]]
+-- nvim-treesitter
 -- https://github.com/nvim-treesitter/nvim-treesitter
 --
--- Per-keystroke syntax tree parser. Enables intelligent text highting, eidting,
--- and navigation.
+-- Package manager for treesitter parsers, plus logic to bootstap these
+-- parsers using Neovim's native treesitter support.
+--
+-- Depends: nil
+--
+-- NOTE: Plugin has dependency on third-party `tree-sitter-cli` host package,
+-- must be installed manually.
 
-return {
+-- If treesitter package is modified in any way, automatically update all
+-- parsers.
+vim.api.nvim_create_autocmd('PackChanged', {
+  callback = function(ev)
+    local name, kind = ev.data.spec.name, ev.data.kind
+    if name == 'nvim-treesitter' and kind == 'update' then
+      -- Treesitter should already be active, but if it's not for some reason
+      -- install it now (triggering parser installation with it).
+      if not ev.data.active then
+        vim.cmd.packadd('nvim-treesitter')
+      else
+        vim.cmd('TSUpdate')
+      end
+    end
+  end
+})
+
+-- Do NOT install tree-sitter from 'master' branch, plugin was fully rewritten
+-- and is now released on 'main'.
+vim.pack.add({
   {
-    'nvim-treesitter/nvim-treesitter',
-    build = ':TSUpdate',
-    main = 'nvim-treesitter.configs', -- Sets main module to use for opts
-    -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
-    opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
-      -- Autoinstall languages that are not installed
-      auto_install = true,
-      highlight = {
-        enable = true,
-        -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
-        --  If you are experiencing weird indenting issues, add the language to
-        --  the list of additional_vim_regex_highlighting and disabled languages for indent.
-        additional_vim_regex_highlighting = { 'ruby' },
-      },
-      indent = { enable = true, disable = { 'ruby' } },
-    },
-    -- There are additional nvim-treesitter modules that you can use to interact
-    -- with nvim-treesitter. You should go explore a few and see what interests you:
-    --
-    --    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
-    --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
-    --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+    src = 'https://github.com/nvim-treesitter/nvim-treesitter',
+    version = 'main',
   },
-}
+})
 
--- vim: ts=2 sts=2 sw=2 et
+-- Treesitter 'setup()' function doesn't need to be called when using default
+-- values, only setup is installing language parsers.
+require('nvim-treesitter').install({
+  'asm',
+  'bash',
+  'c',
+  'cmake',
+  'cpp',
+  'css',
+  'csv',
+  'cuda',
+  'dockerfile',
+  'git_config',
+  'git_rebase',
+  'gitattributes',
+  'gitcommit',
+  'gitignore',
+  'html',
+  'java',
+  'javascript',
+  'jq',
+  'json',
+  'just',
+  'linkerscript',
+  'llvm',
+  'lua',
+  'luadoc',
+  'meson',
+  'ninja',
+  'nix',
+  'objdump',
+  'proto',
+  'python',
+  'r',
+  'regex',
+  'rst',
+  'rust',
+  'ssh_config',
+  'starlark',
+  'systemverilog',
+  'tablegen',
+  'tmux',
+  'toml',
+  'typescript',
+  'vim',
+  'vimdoc',
+  'yaml',
+  'zsh',
+})
+
+-- Load relevant treesitter parser when file type is set for a buffer.
+vim.api.nvim_create_autocmd('FileType', {
+  desc = 'Attach treesitter parser',
+  callback = function(args)
+    local filetype = args.match
+    local lang = vim.treesitter.language.get_lang(filetype)
+    if vim.treesitter.language.add(lang) then
+      -- Use treesitter for folds too.
+      vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+      vim.wo.foldmethod = 'expr'
+      vim.treesitter.start()
+    end
+  end
+})
+
+-- nvim-treesitter-context
+-- https://github.com/nvim-treesitter/nvim-treesitter-context.git
+--
+-- Pins the declaration of the currently visible function / variable at the top
+-- of the active buffer when said declaration would normally be out of view.
+--
+-- Depends: { nvim-treesitter }
+
+vim.pack.add({"https://github.com/nvim-treesitter/nvim-treesitter-context"})
+
+require('treesitter-context').setup({
+  max_lines = 3,            -- Max lines to display for all contexts.
+  multiline_threshold = 1,  -- Max lines to display per individual context.
+  min_window_height = 20,   -- Min window size needed to display any context.
+  line_numbers = true,
+})
+
+vim.keymap.set('n', 'gs', function()
+    require('treesitter-context').go_to_context(vim.v.count1)
+  end,
+  {
+    desc = 'Go to context',
+    silent = true,
+  }
+)
